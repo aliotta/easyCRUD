@@ -1,4 +1,4 @@
-import { EasyCrudTypes } from ".."; //TODO use build instead of src
+import { EasyCrudTypes } from "../.."; //TODO use build instead of src
 import knex from "knex";
 export class KnexRepository implements EasyCrudTypes.DatabaseRepository {
     private knex: knex;
@@ -7,12 +7,13 @@ export class KnexRepository implements EasyCrudTypes.DatabaseRepository {
     constructor(knexClient: knex, schema: EasyCrudTypes.DatabaseSchema){
         this.knex = knexClient;
         this.schema = schema;
-        this.tableName = "users";
+        this.tableName = schema.tableName;
     }
 
     async getAll(){
         try {
-            return await this.knex<EasyCrudTypes.DatabaseObject>(this.tableName).select();
+            const result = await this.knex<EasyCrudTypes.DatabaseObject>(this.tableName).select();
+            return result;
         } catch (error) {
             console.error(`Error in userRepository getAll : ${error.message}`);
             throw error;
@@ -21,7 +22,8 @@ export class KnexRepository implements EasyCrudTypes.DatabaseRepository {
 
     async create(object: EasyCrudTypes.DatabaseObject){
         try {
-            await this.knex<EasyCrudTypes.DatabaseObject>(this.tableName).insert(object);
+            const result = await this.knex<EasyCrudTypes.DatabaseObject>(this.tableName).insert(object);
+            console.log(result);
             return object;
         } catch (error) {
             console.error(`Error in userRepository create: ${error.message}`);

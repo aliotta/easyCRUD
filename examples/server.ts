@@ -1,7 +1,8 @@
 import express, { Express } from 'express';
 import knex from 'knex';
-import { knexConfig } from './config';
-import { UserRoutes } from './UserRoutes';
+import { knexConfig } from './config/config';
+import { UserRoutes } from './routes/UserRoutes';
+const PORT = 3000;
 
 export class Server {
     private expressInstance: Express;
@@ -10,5 +11,8 @@ export class Server {
         this.expressInstance = express();
         this.knexClient = knex(knexConfig);
         new UserRoutes(this.expressInstance, this.knexClient);
+        this.expressInstance.listen(PORT);
     }
 }
+
+new Server();
