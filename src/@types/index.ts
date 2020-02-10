@@ -23,8 +23,8 @@ export type DatabaseObject = {
 
 export interface DatabaseRepository {
     getAll(): Promise<DatabaseObject[]>,
-    // getById( id: string ): DatabaseObject,
-    // deleteById( id: string ): DatabaseObject,
-    // updateById( id: string ): DatabaseObject,
+    getById( id: string ): Promise<DatabaseObject | undefined>,
+    deleteById( id: string ): Promise<number>,
+    updateById( object: DatabaseObject, id: string ): Promise<DatabaseObject>,
     create( object: DatabaseObject ): Promise<DatabaseObject>
 }

@@ -22,9 +22,38 @@ export class KnexRepository implements EasyCrudTypes.DatabaseRepository {
 
     async create(object: EasyCrudTypes.DatabaseObject){
         try {
-            const result = await this.knex<EasyCrudTypes.DatabaseObject>(this.tableName).insert(object);
-            console.log(result);
+            await this.knex<EasyCrudTypes.DatabaseObject>(this.tableName).insert(object);
             return object;
+        } catch (error) {
+            console.error(`Error in userRepository create: ${error.message}`);
+            throw error;
+        }
+    }
+
+    async deleteById(id: string){
+        try {
+            const result = await this.knex<EasyCrudTypes.DatabaseObject>(this.tableName).delete().where("id", id);
+            return result;
+        } catch (error) {
+            console.error(`Error in userRepository create: ${error.message}`);
+            throw error;
+        }
+    }
+
+    async updateById(object: EasyCrudTypes.DatabaseObject, id: string){
+        try {
+            await this.knex<EasyCrudTypes.DatabaseObject>(this.tableName).update(object).where("id", id);
+            return object;
+        } catch (error) {
+            console.error(`Error in userRepository create: ${error.message}`);
+            throw error;
+        }
+    }
+
+    async getById(id: string){
+        try {
+            const result = await this.knex<EasyCrudTypes.DatabaseObject>(this.tableName).first().where("id", id);
+            return result;
         } catch (error) {
             console.error(`Error in userRepository create: ${error.message}`);
             throw error;

@@ -27,17 +27,44 @@ export class EasyCrudClass {
             }
         });
 
-        this.httpHandler.get(`/${this.config.routeName}/:primary_key`, (req, res) => {
-            res.sendStatus(200);
+        this.httpHandler.get(`/${this.config.routeName}/:id`, async (req, res) => {
+            try {
+                const result = await this.dbRepository.getById(req.params.id);
+                if(result){
+                    res.send(result);
+                } else {
+                    res.sendStatus(404);
+                }
+            } catch (error) {
+                res.sendStatus(500);
+            }
         });
 
-        this.httpHandler.delete(`/${this.config.routeName}/:primary_key`, (req, res) => {
-            res.sendStatus(200);
+        this.httpHandler.delete(`/${this.config.routeName}/:id`, async (req, res) => {
+            try {
+                const result = await this.dbRepository.deleteById(req.params.id);
+                if(result){
+                    res.sendStatus(200);
+                } else {
+                    res.sendStatus(404);
+                }
+            } catch (error) {
+                res.sendStatus(500);
+            }
 
         });
 
-        this.httpHandler.put(`/${this.config.routeName}/:primary_key`, (req, res) => {
-            res.sendStatus(200);
+        this.httpHandler.put(`/${this.config.routeName}/:id`, async (req, res) => {
+            try {
+                const result = await this.dbRepository.updateById(req.body, req.params.id);
+                if(result){
+                    res.send(result);
+                } else {
+                    res.sendStatus(404);
+                }
+            } catch (error) {
+                res.sendStatus(500);
+            }
         });
 
         this.httpHandler.post(`/${this.config.routeName}`, async (req, res) => {

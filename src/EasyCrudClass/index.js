@@ -71,17 +71,80 @@ var EasyCrudClass = /** @class */ (function () {
                 }
             });
         }); });
-        this.httpHandler.get("/" + this.config.routeName + "/:primary_key", function (req, res) {
-            res.sendStatus(200);
-        });
-        this.httpHandler.delete("/" + this.config.routeName + "/:primary_key", function (req, res) {
-            res.sendStatus(200);
-        });
-        this.httpHandler.put("/" + this.config.routeName + "/:primary_key", function (req, res) {
-            res.sendStatus(200);
-        });
-        this.httpHandler.post("/" + this.config.routeName, function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        this.httpHandler.get("/" + this.config.routeName + "/:id", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var result, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.dbRepository.getById(req.params.id)];
+                    case 1:
+                        result = _a.sent();
+                        if (result) {
+                            res.send(result);
+                        }
+                        else {
+                            res.sendStatus(404);
+                        }
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_2 = _a.sent();
+                        res.sendStatus(500);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        }); });
+        this.httpHandler.delete("/" + this.config.routeName + "/:id", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var result, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.dbRepository.deleteById(req.params.id)];
+                    case 1:
+                        result = _a.sent();
+                        if (result) {
+                            res.sendStatus(200);
+                        }
+                        else {
+                            res.sendStatus(404);
+                        }
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_3 = _a.sent();
+                        res.sendStatus(500);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        }); });
+        this.httpHandler.put("/" + this.config.routeName + "/:id", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var result, error_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.dbRepository.updateById(req.body, req.params.id)];
+                    case 1:
+                        result = _a.sent();
+                        if (result) {
+                            res.send(result);
+                        }
+                        else {
+                            res.sendStatus(404);
+                        }
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_4 = _a.sent();
+                        res.sendStatus(500);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        }); });
+        this.httpHandler.post("/" + this.config.routeName, function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var result, error_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -97,7 +160,7 @@ var EasyCrudClass = /** @class */ (function () {
                         }
                         return [3 /*break*/, 3];
                     case 2:
-                        error_2 = _a.sent();
+                        error_5 = _a.sent();
                         res.sendStatus(500);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
