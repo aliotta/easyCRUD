@@ -4,6 +4,7 @@
   "description": "quickly add crud routes to your application",
   "main": "index.js",
   "scripts": {
+    "startdev": "node dist/examples/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
