@@ -1,5 +1,6 @@
 import {  Router } from 'express';
 import knex from 'knex';
+import { MongoClient } from 'mongodb';
 export type ColumnType = 'string' | 'boolean' | 'integer' | 'float' | 'jsonb'; 
 export type DatabaseSchema = {
     columns: Record<string, ColumnType>;
@@ -8,13 +9,14 @@ export type DatabaseSchema = {
 }
 
 export interface EasyCrudConfig {
-    dbConnectionInstance: knex;
+    dbConnectionInstance: DatabaseClient;
     httpHandler: Router;
     schema: DatabaseSchema;
     routeName: string;
+    databaseType: string;
 }
 export type HttpHandler = Router;
-export type DatabaseClient = knex;
+export type DatabaseClient = knex | MongoClient;
 
 export type DatabaseObject = {
     id: string,

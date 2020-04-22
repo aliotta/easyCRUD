@@ -1,5 +1,8 @@
 import { EasyCrudConfig, HttpHandler, DatabaseClient, DatabaseRepository } from "../@types";
 import { KnexRepository } from "../DatabaseRepositories/KnexRepository";
+import { MongoDbRepository } from "../DatabaseRepositories/MongoDb";
+import { MongoClient } from "mongodb";
+import knex from "knex";
 export class EasyCrudClass {
     private httpHandler: HttpHandler;
     private dbConnectionInstance: DatabaseClient;
@@ -9,7 +12,12 @@ export class EasyCrudClass {
         this.config = config;
         this.httpHandler = config.httpHandler;
         this.dbConnectionInstance = config.dbConnectionInstance;
-        this.dbRepository = new KnexRepository(this.dbConnectionInstance, config.schema);
+        if(config.databaseType === 'mongodb'){
+            this.dbRepository = new MongoDbRepository(this.dbConnectionInstance as MongoClient, config.schema);
+
+        } else {
+            this.dbRepository = new KnexRepository(this.dbConnectionInstance as knex, config.schema);
+        }
         this.exposeCrudRoutes();
     }
 

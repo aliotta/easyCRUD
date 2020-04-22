@@ -1,6 +1,6 @@
 export const knexConfig = {
     client: 'sqlite3',
     connection: {
-        filename: './examples/dev.sqlite3'
+        filename: './examples/KnexSqliteExample/dev.sqlite3'
     }
 };

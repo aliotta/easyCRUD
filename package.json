@@ -4,7 +4,9 @@
   "description": "quickly add crud routes to your application",
   "main": "index.js",
   "scripts": {
-    "startdev": "tsc && node dist/examples/server.js",
+    "start:example:mongo": "tsc && node dist/examples/MongoDbExample/server.js",
+    "migrate": "knex migrate:latest",
+    "startdev": "tsc && node dist/examples/KnexSqliteExample/server.js",
     "test": "jest",
     "build": "tsc"
   },
@@ -27,9 +29,11 @@
   "dependencies": {
     "@types/express": "^4.17.2",
     "@types/knex": "^0.16.1",
+    "@types/mongodb": "^3.5.9",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "knex": "^0.20.9"
+    "knex": "^0.20.9",
+    "mongodb": "^3.5.6"
   },
   "devDependencies": {
     "ts-jest": "^25.2.0",
