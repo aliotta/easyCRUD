@@ -12,9 +12,9 @@ export class MongoDbRepository implements EasyCrudTypes.DatabaseRepository {
         this.collection = this.mongodb.collection(this.collectionName);
     }
 
-    async getAll(){
+    async getAll(filter: Record<string, any> = {}, limit: number = 25){
         try {
-            const result = await this.collection.find<EasyCrudTypes.DatabaseObject>({}).toArray();
+            const result = await this.collection.find<EasyCrudTypes.DatabaseObject>(filter).limit(limit).toArray();
             return result;
         } catch (error) {
             console.error(`Error in userRepository getAll : ${error.message}`);

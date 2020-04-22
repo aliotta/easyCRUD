@@ -32,5 +32,5 @@ See examples/routes/UserRoutes to see just how easy it is to use this module
 - allow user to provide middleware on a route by route basis
 - allow user to specify which routes get exposed
 - use schema to return 400's on bad requests before hitting the db
-- 100% test coverage
-- 100% mutation test coverage
+- 100% test coverage of src files
+- 100% mutation test coverage of src files

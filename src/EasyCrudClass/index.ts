@@ -24,7 +24,12 @@ export class EasyCrudClass {
     exposeCrudRoutes(){
         this.httpHandler.get(`/${this.config.routeName}`, async (req, res) => {
             try {
-                const result = await this.dbRepository.getAll();
+                const filter = req.query.filter;
+                let limit;
+                if(req.query.limit){
+                    limit = Number(req.query.limit);
+                }
+                const result = await this.dbRepository.getAll(filter, limit);
                 if(result){
                     res.send(result);
                 } else {

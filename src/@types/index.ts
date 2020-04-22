@@ -1,7 +1,7 @@
 import {  Router } from 'express';
 import knex from 'knex';
 import { MongoClient } from 'mongodb';
-export type ColumnType = 'string' | 'boolean' | 'integer' | 'float' | 'jsonb'; 
+export type ColumnType = 'string' | 'boolean' | 'integer' | 'float' | 'jsonb' | 'date'; 
 export type DatabaseSchema = {
     columns: Record<string, ColumnType>;
     indices?: string | string[][]; 
@@ -24,7 +24,7 @@ export type DatabaseObject = {
 }
 
 export interface DatabaseRepository {
-    getAll(): Promise<DatabaseObject[]>,
+    getAll(filter?: Record<string,string>, limit?: number): Promise<DatabaseObject[]>,
     getById( id: string ): Promise<DatabaseObject | undefined>,
     deleteById( id: string ): Promise<number>,
     updateById( object: DatabaseObject, id: string ): Promise<DatabaseObject>,
